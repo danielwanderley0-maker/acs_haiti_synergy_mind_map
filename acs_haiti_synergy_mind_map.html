@@ -1,0 +1,181 @@
+
+<style>
+  .hub{cursor:pointer;transition:transform .2s,filter .2s}
+  .hub:hover{filter:brightness(1.1)}
+  .cluster-arc{fill:none;stroke-dasharray:6 4;opacity:.45;stroke-width:1.5}
+  .synergy-node{cursor:pointer;transition:opacity .2s}
+  .synergy-node:hover{opacity:.85}
+  .legend-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--color-text-secondary)}
+  .legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+  #info-panel{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:12px 16px;min-height:48px;font-size:13px;color:var(--color-text-secondary);transition:all .3s;margin-top:12px}
+  #info-panel.active{color:var(--color-text-primary)}
+  .pillar-label{font-size:11px;font-weight:500;letter-spacing:.3px}
+</style>
+
+<svg width="100%" viewBox="0 0 780 780" style="max-width:780px;margin:0 auto;display:block">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- Transversal cluster arcs -->
+  <path class="cluster-arc" stroke="#7F77DD" d="M 195 220 Q 390 100 585 220" id="arc-info"/>
+  <path class="cluster-arc" stroke="#1D9E75" d="M 490 560 Q 650 390 490 220" id="arc-geo"/>
+  <path class="cluster-arc" stroke="#D85A30" d="M 290 560 Q 130 390 290 220" id="arc-fin"/>
+  <path class="cluster-arc" stroke="#378ADD" d="M 200 400 Q 390 650 580 400" id="arc-ssc"/>
+
+  <!-- Central ACS hub -->
+  <g class="hub" onclick="showInfo('acs')">
+    <circle cx="390" cy="390" r="62" fill="#1B5E7B" stroke="#0C447C" stroke-width="2"/>
+    <text x="390" y="380" text-anchor="middle" fill="#fff" font-size="13" font-weight="500" font-family="var(--font-sans)">Association of</text>
+    <text x="390" y="396" text-anchor="middle" fill="#fff" font-size="13" font-weight="500" font-family="var(--font-sans)">Caribbean States</text>
+    <text x="390" y="414" text-anchor="middle" fill="#B5D4F4" font-size="10" font-family="var(--font-sans)">Cooperation Mechanism</text>
+  </g>
+
+  <!-- Pillar 1: Safe Humanitarian Access (top) -->
+  <g class="hub" onclick="showInfo('p1')">
+    <ellipse cx="390" cy="170" rx="85" ry="32" fill="#534AB7" stroke="#3C3489" stroke-width="1"/>
+    <text x="390" y="166" text-anchor="middle" fill="#EEEDFE" font-size="12" font-weight="500" font-family="var(--font-sans)">Safe humanitarian</text>
+    <text x="390" y="180" text-anchor="middle" fill="#CECBF6" font-size="11" font-family="var(--font-sans)">access (WG1)</text>
+  </g>
+  <line x1="390" y1="202" x2="390" y2="328" stroke="#AFA9EC" stroke-width="1" opacity=".4"/>
+
+  <!-- P1 synergy nodes -->
+  <g class="synergy-node" onclick="showInfo('p1-1')"><circle cx="280" cy="130" r="18" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/><text x="280" y="133" text-anchor="middle" fill="#3C3489" font-size="9" font-weight="500" font-family="var(--font-sans)">P1-1</text></g>
+  <g class="synergy-node" onclick="showInfo('p1-2')"><circle cx="330" cy="105" r="18" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/><text x="330" y="108" text-anchor="middle" fill="#3C3489" font-size="9" font-weight="500" font-family="var(--font-sans)">P1-2</text></g>
+  <g class="synergy-node" onclick="showInfo('p1-3')"><circle cx="450" cy="105" r="18" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/><text x="450" y="108" text-anchor="middle" fill="#3C3489" font-size="9" font-weight="500" font-family="var(--font-sans)">P1-3</text></g>
+  <g class="synergy-node" onclick="showInfo('p1-4')"><circle cx="500" cy="130" r="18" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/><text x="500" y="133" text-anchor="middle" fill="#3C3489" font-size="9" font-weight="500" font-family="var(--font-sans)">P1-4</text></g>
+
+  <!-- Pillar 2: Food Security (top-right) -->
+  <g class="hub" onclick="showInfo('p2')">
+    <ellipse cx="580" cy="270" rx="80" ry="32" fill="#0F6E56" stroke="#085041" stroke-width="1"/>
+    <text x="580" y="266" text-anchor="middle" fill="#E1F5EE" font-size="12" font-weight="500" font-family="var(--font-sans)">Food security</text>
+    <text x="580" y="280" text-anchor="middle" fill="#9FE1CB" font-size="11" font-family="var(--font-sans)">& health (WG2)</text>
+  </g>
+  <line x1="530" y1="290" x2="445" y2="360" stroke="#5DCAA5" stroke-width="1" opacity=".4"/>
+
+  <g class="synergy-node" onclick="showInfo('p2-1')"><circle cx="670" cy="220" r="18" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/><text x="670" y="223" text-anchor="middle" fill="#085041" font-size="9" font-weight="500" font-family="var(--font-sans)">P2-1</text></g>
+  <g class="synergy-node" onclick="showInfo('p2-2')"><circle cx="700" cy="270" r="18" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/><text x="700" y="273" text-anchor="middle" fill="#085041" font-size="9" font-weight="500" font-family="var(--font-sans)">P2-2</text></g>
+  <g class="synergy-node" onclick="showInfo('p2-3')"><circle cx="700" cy="320" r="18" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/><text x="700" y="323" text-anchor="middle" fill="#085041" font-size="9" font-weight="500" font-family="var(--font-sans)">P2-3</text></g>
+  <g class="synergy-node" onclick="showInfo('p2-4')"><circle cx="670" cy="370" r="18" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/><text x="670" y="373" text-anchor="middle" fill="#085041" font-size="9" font-weight="500" font-family="var(--font-sans)">P2-4</text></g>
+
+  <!-- Pillar 3: WASH (bottom-right) -->
+  <g class="hub" onclick="showInfo('p3')">
+    <ellipse cx="560" cy="500" rx="65" ry="32" fill="#185FA5" stroke="#0C447C" stroke-width="1"/>
+    <text x="560" y="497" text-anchor="middle" fill="#E6F1FB" font-size="12" font-weight="500" font-family="var(--font-sans)">WASH</text>
+    <text x="560" y="511" text-anchor="middle" fill="#B5D4F4" font-size="11" font-family="var(--font-sans)">(WG3)</text>
+  </g>
+  <line x1="510" y1="480" x2="435" y2="420" stroke="#85B7EB" stroke-width="1" opacity=".4"/>
+
+  <g class="synergy-node" onclick="showInfo('p3-1')"><circle cx="650" cy="470" r="18" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/><text x="650" y="473" text-anchor="middle" fill="#0C447C" font-size="9" font-weight="500" font-family="var(--font-sans)">P3-1</text></g>
+  <g class="synergy-node" onclick="showInfo('p3-2')"><circle cx="670" cy="520" r="18" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/><text x="670" y="523" text-anchor="middle" fill="#0C447C" font-size="9" font-weight="500" font-family="var(--font-sans)">P3-2</text></g>
+  <g class="synergy-node" onclick="showInfo('p3-3')"><circle cx="640" cy="560" r="18" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/><text x="640" y="563" text-anchor="middle" fill="#0C447C" font-size="9" font-weight="500" font-family="var(--font-sans)">P3-3</text></g>
+
+  <!-- Pillar 4: Child Protection (bottom) -->
+  <g class="hub" onclick="showInfo('p4')">
+    <ellipse cx="390" cy="610" rx="80" ry="32" fill="#993556" stroke="#72243E" stroke-width="1"/>
+    <text x="390" y="606" text-anchor="middle" fill="#FBEAF0" font-size="12" font-weight="500" font-family="var(--font-sans)">Child protection</text>
+    <text x="390" y="620" text-anchor="middle" fill="#F4C0D1" font-size="11" font-family="var(--font-sans)">& vulnerable groups (WG4)</text>
+  </g>
+  <line x1="390" y1="578" x2="390" y2="452" stroke="#ED93B1" stroke-width="1" opacity=".4"/>
+
+  <g class="synergy-node" onclick="showInfo('p4-1')"><circle cx="310" cy="660" r="18" fill="#FBEAF0" stroke="#993556" stroke-width="0.5"/><text x="310" y="663" text-anchor="middle" fill="#72243E" font-size="9" font-weight="500" font-family="var(--font-sans)">P4-1</text></g>
+  <g class="synergy-node" onclick="showInfo('p4-2')"><circle cx="360" cy="690" r="18" fill="#FBEAF0" stroke="#993556" stroke-width="0.5"/><text x="360" y="693" text-anchor="middle" fill="#72243E" font-size="9" font-weight="500" font-family="var(--font-sans)">P4-2</text></g>
+  <g class="synergy-node" onclick="showInfo('p4-3')"><circle cx="420" cy="690" r="18" fill="#FBEAF0" stroke="#993556" stroke-width="0.5"/><text x="420" y="693" text-anchor="middle" fill="#72243E" font-size="9" font-weight="500" font-family="var(--font-sans)">P4-3</text></g>
+  <g class="synergy-node" onclick="showInfo('p4-4')"><circle cx="470" cy="660" r="18" fill="#FBEAF0" stroke="#993556" stroke-width="0.5"/><text x="470" y="663" text-anchor="middle" fill="#72243E" font-size="9" font-weight="500" font-family="var(--font-sans)">P4-4</text></g>
+
+  <!-- Pillar 5: Financing (bottom-left) -->
+  <g class="hub" onclick="showInfo('p5')">
+    <ellipse cx="220" cy="500" rx="70" ry="32" fill="#854F0B" stroke="#633806" stroke-width="1"/>
+    <text x="220" y="497" text-anchor="middle" fill="#FAEEDA" font-size="12" font-weight="500" font-family="var(--font-sans)">Financing</text>
+    <text x="220" y="511" text-anchor="middle" fill="#FAC775" font-size="11" font-family="var(--font-sans)">(WG5)</text>
+  </g>
+  <line x1="275" y1="480" x2="345" y2="420" stroke="#EF9F27" stroke-width="1" opacity=".4"/>
+
+  <g class="synergy-node" onclick="showInfo('p5-1')"><circle cx="110" cy="470" r="18" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/><text x="110" y="473" text-anchor="middle" fill="#633806" font-size="9" font-weight="500" font-family="var(--font-sans)">P5-1</text></g>
+  <g class="synergy-node" onclick="showInfo('p5-2')"><circle cx="90" cy="520" r="18" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/><text x="90" y="523" text-anchor="middle" fill="#633806" font-size="9" font-weight="500" font-family="var(--font-sans)">P5-2</text></g>
+  <g class="synergy-node" onclick="showInfo('p5-3')"><circle cx="110" cy="560" r="18" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/><text x="110" y="563" text-anchor="middle" fill="#633806" font-size="9" font-weight="500" font-family="var(--font-sans)">P5-3</text></g>
+  <g class="synergy-node" onclick="showInfo('p5-4')"><circle cx="140" cy="590" r="18" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/><text x="140" y="593" text-anchor="middle" fill="#633806" font-size="9" font-weight="500" font-family="var(--font-sans)">P5-4</text></g>
+  <g class="synergy-node" onclick="showInfo('p5-5')"><circle cx="180" cy="610" r="18" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/><text x="180" y="613" text-anchor="middle" fill="#633806" font-size="9" font-weight="500" font-family="var(--font-sans)">P5-5</text></g>
+
+  <!-- Pillar 6: Sustainable Development (top-left) -->
+  <g class="hub" onclick="showInfo('p6')">
+    <ellipse cx="200" cy="270" rx="80" ry="32" fill="#993C1D" stroke="#712B13" stroke-width="1"/>
+    <text x="200" y="266" text-anchor="middle" fill="#FAECE7" font-size="12" font-weight="500" font-family="var(--font-sans)">Sustainable dev.</text>
+    <text x="200" y="280" text-anchor="middle" fill="#F5C4B3" font-size="11" font-family="var(--font-sans)">transition (WG6)</text>
+  </g>
+  <line x1="255" y1="290" x2="340" y2="360" stroke="#F0997B" stroke-width="1" opacity=".4"/>
+
+  <g class="synergy-node" onclick="showInfo('p6-1')"><circle cx="90" cy="220" r="18" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/><text x="90" y="223" text-anchor="middle" fill="#712B13" font-size="9" font-weight="500" font-family="var(--font-sans)">P6-1</text></g>
+  <g class="synergy-node" onclick="showInfo('p6-2')"><circle cx="70" cy="270" r="18" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/><text x="70" y="273" text-anchor="middle" fill="#712B13" font-size="9" font-weight="500" font-family="var(--font-sans)">P6-2</text></g>
+  <g class="synergy-node" onclick="showInfo('p6-3')"><circle cx="70" cy="320" r="18" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/><text x="70" y="323" text-anchor="middle" fill="#712B13" font-size="9" font-weight="500" font-family="var(--font-sans)">P6-3</text></g>
+  <g class="synergy-node" onclick="showInfo('p6-4')"><circle cx="90" cy="370" r="18" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/><text x="90" y="373" text-anchor="middle" fill="#712B13" font-size="9" font-weight="500" font-family="var(--font-sans)">P6-4</text></g>
+  <g class="synergy-node" onclick="showInfo('p6-5')"><circle cx="120" cy="410" r="18" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/><text x="120" y="413" text-anchor="middle" fill="#712B13" font-size="9" font-weight="500" font-family="var(--font-sans)">P6-5</text></g>
+
+  <!-- Cross-cutting nodes -->
+  <g class="synergy-node" onclick="showInfo('cc-1')"><circle cx="310" cy="80" r="16" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/><text x="310" y="83" text-anchor="middle" fill="#444441" font-size="8" font-weight="500" font-family="var(--font-sans)">CC-1</text></g>
+  <g class="synergy-node" onclick="showInfo('cc-2')"><circle cx="470" cy="80" r="16" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/><text x="470" y="83" text-anchor="middle" fill="#444441" font-size="8" font-weight="500" font-family="var(--font-sans)">CC-2</text></g>
+  <g class="synergy-node" onclick="showInfo('cc-3')"><circle cx="390" cy="60" r="16" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/><text x="390" y="63" text-anchor="middle" fill="#444441" font-size="8" font-weight="500" font-family="var(--font-sans)">CC-3</text></g>
+
+  <!-- Transversal cluster labels -->
+  <text x="390" y="25" text-anchor="middle" fill="var(--color-text-secondary)" font-size="11" font-family="var(--font-sans)" opacity=".7">Cross-cutting: Haitian ownership</text>
+
+  <text x="390" y="760" text-anchor="middle" fill="var(--color-text-tertiary)" font-size="10" font-family="var(--font-sans)">Click any node or pillar to view details</text>
+</svg>
+
+<div style="display:flex;flex-wrap:wrap;gap:12px 20px;margin-top:12px;padding:0 4px">
+  <div class="legend-item"><div class="legend-dot" style="background:#7F77DD"></div>Information architecture cluster</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#1D9E75"></div>Geographic convergence cluster</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#D85A30"></div>Financial advocacy cluster</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#378ADD"></div>South-South cooperation cluster</div>
+</div>
+
+<div id="info-panel">Click any synergy node or pillar hub to see details about the connection and the ACS bridging role.</div>
+
+<script>
+const data = {
+  'acs': {title:'ACS Cooperation Mechanism', desc:'The ACS sits at the center of 28 identified synergies across 6 pillars. Its role: convene, map, align, and amplify \u2014 not duplicate or replace operational agencies. Three action modes: (1) global/regional advocacy, (2) bilateral/plurilateral technical support mobilization, (3) project implementation.'},
+  'p1': {title:'Pillar I: Safe humanitarian access', desc:'4 synergies identified. ACS contributes through political advocacy for humanitarian space, territorial capacity mapping via the 4Ws exercise, brokering security/access data through OCHA channels, and mapping private-sector logistics chains.'},
+  'p2': {title:'Pillar II: Food security & health', desc:'4 synergies identified. ACS bridges WFP/FAO local procurement with trade facilitation, channels Member State agricultural cooperation, advocates to CDB/CAF for smallholder finance, and convenes integrated school feeding + protection pilots.'},
+  'p3': {title:'Pillar III: WASH', desc:'3 synergies identified. ACS facilitates Caribbean water authority twinning, mobilizes CARPHA epidemiological surge capacity, and promotes gender-sensitive WASH design standards across the humanitarian response.'},
+  'p4': {title:'Pillar IV: Child protection & vulnerable groups', desc:'4 synergies identified. ACS brokers pre-positioning warehouse agreements, designs integrated education-protection pilots in development hubs, promotes cross-border safeguarding protocols, and manages a regional professional roster.'},
+  'p5': {title:'Pillar V: Rapid & flexible financing', desc:'5 synergies identified. ACS hosts a donor coordination dashboard, connects diaspora communities to Haiti\u2019s cooperation fund, amplifies multi-year financing advocacy in regional fora, advocates for CCRIF integration, and facilitates mobile money regulatory exchanges.'},
+  'p6': {title:'Pillar VI: Transition to sustainable development', desc:'5 synergies identified. ACS matchmakes institutional twinning, establishes development hub coordination frameworks, advocates for Caribbean trade preferences, channels digitalization expertise, and bridges CARICOM and Latin American cooperation offers.'},
+  'cc-1': {title:'CC-1: 4Ws mapping', desc:'OCHA information management + ACS Secretariat. ACS extends humanitarian data with development, bilateral, and private-sector intervention layers. Part of the information architecture cluster.'},
+  'cc-2': {title:'CC-2: Focal points liaison', desc:'BINUH/UN Country Team + ACS Steering Committee focal points. ACS channels Member State bilateral offers into the UN-coordinated framework, avoiding parallel tracks.'},
+  'cc-3': {title:'CC-3: Anticipatory action', desc:'CERF anticipatory framework + ACS DRR Committee early warning systems. ACS regional early warning data feeds into Haiti\u2019s CERF trigger mechanisms for pre-impact response.'},
+  'p1-1': {title:'P1-1: Access advocacy', desc:'OCHA access negotiations + ACS political convening. Steering Committee statements reinforce humanitarian principles and sensitize security forces on neutrality and impartiality.'},
+  'p1-2': {title:'P1-2: Capacity mapping', desc:'IFRC local Red Cross networks + ACS 4Ws territorial layer. Maps which local organizations have established access in specific zones for delivery planning.'},
+  'p1-3': {title:'P1-3: Security data brokerage', desc:'ACLED conflict data + ACAPS analysis + ACS satellite/early warning. ACS brokers security information through OCHA\u2019s confidential channels for route planning.'},
+  'p1-4': {title:'P1-4: Private logistics mapping', desc:'Private sector distribution chains + ACS trade networks. Maps commercial logistics still operating in contested territories for humanitarian use.'},
+  'p2-1': {title:'P2-1: Local procurement linkage', desc:'WFP/FAO procurement mandates + ACS trade facilitation. Connects Haitian producers to WFP procurement systems and facilitates triangular cooperation.'},
+  'p2-2': {title:'P2-2: Agricultural input coordination', desc:'FAO programs (seeds, tools, livestock) + ACS bilateral agricultural cooperation from Member States. Coordinates aid into shared geographic zones.'},
+  'p2-3': {title:'P2-3: Agricultural finance advocacy', desc:'WG2 crop insurance/contract farming recommendations + CDB/CAF/IDB engagement. ACS presents consolidated advocacy to development banks. Part of financial advocacy cluster.'},
+  'p2-4': {title:'P2-4: School feeding + protection', desc:'WFP school feeding + UNICEF child protection + Member State resources. ACS convenes integrated pilot in Cap-Ha\u00eftien or Les Cayes. Part of geographic convergence cluster.'},
+  'p3-1': {title:'P3-1: Community WASH twinning', desc:'UNICEF WASH programs + Caribbean municipal water authorities. ACS facilitates twinning on community-managed sanitation models. Part of South-South cooperation cluster.'},
+  'p3-2': {title:'P3-2: Cholera surge response', desc:'PAHO surveillance + CARPHA epidemiological capacity. ACS mobilizes Caribbean public health surge support. Part of South-South cooperation cluster.'},
+  'p3-3': {title:'P3-3: Gender-sensitive WASH standards', desc:'Protection actors + WASH actors. ACS promotes unified design standards for safe, sex-segregated sanitation in displacement sites.'},
+  'p4-1': {title:'P4-1: Supply pre-positioning', desc:'UNICEF supply needs + ACS Member State warehouses. ACS brokers agreements with Panama, Dominican Republic, Jamaica for fast-track customs.'},
+  'p4-2': {title:'P4-2: Education-protection pilot', desc:'WFP + UNICEF + Member State technical cooperation. Integrated demonstration project outside Port-au-Prince. Part of geographic convergence cluster.'},
+  'p4-3': {title:'P4-3: Cross-border safeguarding', desc:'Child protection agencies + Caribbean transit states. ACS promotes harmonized protocols for Haitian children moving via irregular maritime routes.'},
+  'p4-4': {title:'P4-4: Professional roster', desc:'UNICEF/IOM + francophone/Creole-speaking Member States. ACS manages regional roster for rotational surge deployments. Part of South-South cooperation cluster.'},
+  'p5-1': {title:'P5-1: Donor coordination dashboard', desc:'OCHA Financial Tracking Service + ACS Secretariat + Haiti Ministry of Planning. ACS hosts coordination platform tracking humanitarian and development flows. Part of information architecture cluster.'},
+  'p5-2': {title:'P5-2: Diaspora engagement', desc:'Haiti Ministry of Planning cooperation fund + ACS networks in states hosting Haitian diaspora. Connects community organizations to structured investment mechanisms.'},
+  'p5-3': {title:'P5-3: Multi-year financing advocacy', desc:'World Bank CPF + ACS Member States\u2019 collective voice. Joint advocacy at CARICOM, OAS, IDB for 5-10 year financing commitments. Part of financial advocacy cluster.'},
+  'p5-4': {title:'P5-4: Parametric insurance integration', desc:'CERF contingency financing + CCRIF + ACS DRR portfolio. Technical assessment for Haiti\u2019s full integration into Caribbean catastrophe insurance. Part of financial advocacy cluster.'},
+  'p5-5': {title:'P5-5: Mobile money regulatory exchange', desc:'Caribbean financial regulators + Haiti regulators. ACS facilitates regulatory learning on KYC reform, fee reduction, and mobile money expansion.'},
+  'p6-1': {title:'P6-1: Institutional twinning', desc:'Haitian ministries + ACS Member State counterparts. Matches: disaster mgmt (Jamaica/Cuba), tax admin (Trinidad), ports (Panama), public health (Cuba/Costa Rica). Part of South-South cooperation cluster.'},
+  'p6-2': {title:'P6-2: Development hub framework', desc:'All actors in Cap-Ha\u00eftien/Les Cayes + Haitian local authorities. Single coordination space reducing duplication. Part of geographic convergence cluster.'},
+  'p6-3': {title:'P6-3: Trade diversification', desc:'Haitian exporters + CARICOM trade architecture. ACS advocates for Caribbean preferential market access, reducing dependence on single US market. Part of financial advocacy cluster.'},
+  'p6-4': {title:'P6-4: Digitalization cooperation', desc:'e-Government specialists from Colombia, Mexico, Barbados + Haiti Ministry of Planning. Targets supply-chain tracking and external cooperation directory. Part of South-South cooperation cluster.'},
+  'p6-5': {title:'P6-5: CARICOM-Latin America matching', desc:'CARICOM development entities + Latin American cooperation portfolios. ACS bridges both subregions\u2019 offers for priority Haitian sectors. Part of South-South cooperation cluster.'}
+};
+
+function showInfo(id) {
+  const d = data[id];
+  const panel = document.getElementById('info-panel');
+  panel.classList.add('active');
+  panel.innerHTML = '<div style="font-weight:500;font-size:14px;margin-bottom:4px;color:var(--color-text-primary)">' + d.title + '</div><div>' + d.desc + '</div>';
+}
+</script>
